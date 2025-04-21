@@ -73,7 +73,7 @@ This architecture improves generalization and avoids over-reliance on any single
 
 This stacked ensemble method leverages the strengths of each base model, aiming to improve overall predictive performance.
 
-- ## Reproducibility > Claims
+## Reproducibility > Claims
 
 Publishing performance numbers in a PDF means nothing without **verifiable code**, **data**, and **methodology**.  
 Claims like “99.28% accuracy” are scientifically meaningless without reproducibility.

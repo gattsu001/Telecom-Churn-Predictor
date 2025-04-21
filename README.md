@@ -1,3 +1,4 @@
+
 # Telecom Churn Predictor
 
 **Churn classification model for telecom customer datasets.  
@@ -28,7 +29,7 @@ The output helps retention teams target at-risk customers before they leave.
 | Precision | 0.8675  | % of predicted churners that actually churned |
 | Recall    | 0.7423  | % of actual churners correctly identified |
 
-Evaluation done on 50/50 stratified train/test split.  
+Evaluation done on 80/20 stratified train/test split.  
 Base learners trained using k-fold CV. Meta-learner trained on out-of-fold predictions.
 
 ---
@@ -39,39 +40,33 @@ The model is structured as a **two-tiered ensemble**, where each layer plays a d
 
 #### **Level 1: Base Learners**
 
-At the first level, four different classifiers are trained independently on the same input features:
+At the first level, only one model is used:
 
 - `XGBoostClassifier`
+
+This model learns patterns from customer attributes (usage, billing, service plans, etc.) and produces a churn probability.
+
+#### **Level 2: Meta-Learners**
+
+The predicted churn probability from Level 1 (XGBoost) is **combined with the original feature set**, then used as input to train three meta-learners:
+
 - `LogisticRegression`
 - `DecisionTreeClassifier`
 - `GaussianNB`
 
-Each model learns its own logic for predicting churn based on customer attributes (usage, billing, service plans, etc.).  
-When given a new customer record, each model outputs a **single probability value**—the likelihood that the customer will churn.
+Each of these meta-models learns a slightly different decision boundary based on the XGBoost signal and the original data. These models each output a second-level probability of churn.
 
-Think of each base model as casting a probabilistic vote:  
-> “Given this input, I estimate the churn risk is 18%.”  
-> “I estimate 34%.”  
-> “I say 12%.”  
-> “I predict 22%.”
+These three second-layer probabilities are then **combined via a weighted soft vote**:
 
-This results in four probabilities per customer, one from each base learner.
+- Logistic Regression: 0.4
+- Decision Tree: 0.3
+- Naive Bayes: 0.3
 
-#### **Level 2: Meta-Learner**
+The result is a final, blended churn probability that reflects multiple modeling assumptions.
 
-These four churn probabilities become the input to a **Logistic Regression meta-learner**.
+This architecture improves generalization and avoids over-reliance on any single model’s biases. It was designed to reproduce and extend the structure proposed in the MDPI telecom churn ensemble study.
 
-The meta-learner doesn't see the original customer data. Instead, it learns how to **weight and combine** the base models' outputs based on historical performance:
-
-- If XGBoost is usually right in high-risk cases, it gets more influence there.
-- If Naive Bayes tends to overpredict churn, the meta-learner learns to downweight it.
-
-The output of the meta-learner is the **final churn probability**, integrating the strengths of all four base models while reducing individual weaknesses.
-
-This architecture improves generalization and avoids over-reliance on any single model’s assumptions or biases.
-
-
-This stacked ensemble method leverages the strengths of each base model, aiming to improve overall predictive performance.
+---
 
 ## Reproducibility > Claims
 
@@ -85,16 +80,17 @@ GitHub models provide something better than publication in an academic journals:
 If you can inspect the code, run the pipeline, and trace the model's decisions on real data—  
 you’ve got a **testable asset**, not a claim.
 
+---
 
 ## Design Snapshot
 
-| Component           | My Model                                             |
-|---------------------|------------------------------------------------------|
-| Bucketing Strategy  | Fixed 5-bin discretization for all numeric fields   |
-| Ensemble Structure  | Single-stage `StackingClassifier` with all 4 models |
-| Train/Test Split    | 50/50                                                |
-| Feature Selection   | All available features, fully encoded               |
-| Voting Mechanism    | Logistic Regression meta-learner                    |
+| Component           | My Model                                                           |
+|---------------------|--------------------------------------------------------------------|
+| Bucketing Strategy  | Per-feature Sturges-based bin count with equidistant discretizing |
+| Ensemble Structure  | Two-stage pipeline: XGB → (LR, DT, NB) → weighted soft vote        |
+| Train/Test Split    | 80/20 stratified                                                  |
+| Feature Selection   | Original + 12 grouped features (33 total), matching MDPI design   |
+| Voting Mechanism    | Weighted soft vote (LR: 0.4, DT: 0.3, NB: 0.3)                     |
 
 ---
 
@@ -106,6 +102,7 @@ A 94.6% accuracy and 0.8968 AUC make this implementation a strong benchmark for 
 
 ---
 
+```
 ├── churn_model/
 │   ├── predict.py
 │   ├── train.py
@@ -115,9 +112,10 @@ A 94.6% accuracy and 0.8968 AUC make this implementation a strong benchmark for 
 │   │   ├── dt_model.joblib
 │   │   ├── nb_model.joblib
 │   │   └── preprocessor.joblib
-
+```
 
 ---
+
 ## How to Run
 
 ```bash
@@ -125,3 +123,4 @@ git clone https://github.com/yourusername/telecom-churn-predictor.git
 cd telecom-churn-predictor
 pip install -r requirements.txt
 python train.py
+```

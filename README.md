@@ -73,14 +73,6 @@ This architecture improves generalization and avoids over-reliance on any single
 
 This stacked ensemble method leverages the strengths of each base model, aiming to improve overall predictive performance.
 
-## Industry Accuracy Benchmarks
-
-Achieving a 94.6% accuracy in churn prediction is commendable. In the telecommunications sector, typical model accuracies vary based on data quality, feature selection, and modeling techniques:
-
-- **Random Forest Models**: Studies have reported accuracies around 91.66%, with precision and recall in the low 80s.
-- **Logistic Regression Models**: Some implementations have achieved up to 96% accuracy, highlighting the effectiveness of simpler models when well-tuned.
-- **Advanced Ensemble Models**: Combining multiple algorithms, including neural networks and boosting techniques, has led to reported (without code) accuracies approaching 99.28% in certain studies.
-
 - ## Reproducibility > Claims
 
 Publishing performance numbers in a PDF means nothing without **verifiable code**, **data**, and **methodology**.  

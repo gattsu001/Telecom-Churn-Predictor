@@ -131,4 +131,4 @@ A 94.6% accuracy and 0.8968 AUC make this implementation a strong benchmark for 
 git clone https://github.com/yourusername/telecom-churn-predictor.git
 cd telecom-churn-predictor
 pip install -r requirements.txt
-python train_pipeline.py
+python train.py

@@ -112,6 +112,16 @@ The final system is a layered, structured ensemble with strong performance and h
 
 A 94.6% accuracy and 0.8968 AUC make this implementation a strong benchmark for practical churn prediction. The modular architecture, clean feature processing, and documented evaluation steps support easy replication and extension—whether for production deployment or integration with retention strategy tools.
 
+---
+
+├── churn_model/
+│   ├── train.py
+│   ├── artifacts/
+│   │   ├── xgb_model.joblib
+│   │   ├── lr_model.joblib
+│   │   ├── dt_model.joblib
+│   │   ├── nb_model.joblib
+│   │   └── preprocessor.joblib
 
 ---
 ## How to Run

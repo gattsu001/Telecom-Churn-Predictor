@@ -115,6 +115,7 @@ A 94.6% accuracy and 0.8968 AUC make this implementation a strong benchmark for 
 ---
 
 ├── churn_model/
+│   ├── predict.py
 │   ├── train.py
 │   ├── artifacts/
 │   │   ├── xgb_model.joblib

@@ -104,6 +104,49 @@ The model demonstrated strong performance across various metrics:
 
 These results indicate that the model effectively identifies customers likely to churn, providing valuable insights for retention strategies.
 
+---
+
+## SVM Contribution
+
+This contribution adds a simple **Support Vector Machine (SVM)** baseline model for predicting telecom customer churn using the existing dataset `churn-in-telecom-dataset.csv`.
+
+### Overview
+The new SVM implementation provides a transparent and modular baseline that complements the existing ensemble-based approaches. It focuses on numeric features and offers an interpretable comparison point for evaluating the dataset’s separability and feature scaling effects.
+
+### How to Run
+From the repository root, execute:
+
+```bash
+python -m churn_svm_model.svm --csv churn-in-telecom-dataset.csv --label churn
+```
+
+### SVM Results
+After running the above command, you will see a classification report like this:
+
+               precision    recall  f1-score   support
+   False            0.93      0.87      0.90       570
+   True             0.46      0.64      0.54        97
+   accuracy                             0.84       667
+   macro avg        0.70      0.76      0.72       667
+   weighted avg     0.87      0.84      0.85       667
+
+### SVM Testing
+A minimal test script `svm_test/test_svm.py` has been added to validate the SVM functionality.
+
+It creates a small synthetic dataset to confirm that the function  
+`train_and_evaluate()` runs successfully and produces a classification report.
+
+Run the test with:
+```bash
+pytest -q
+```
+
+Expected output:
+
+```bash
+1 passed in 1.8s
+```
+
 ## Contributing
 
 We welcome contributions to improve the Telecom Churn Predictor. If you have suggestions or improvements, please follow these steps:

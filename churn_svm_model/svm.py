@@ -74,7 +74,7 @@ def train_and_evaluate(csv_path: str, label_col: str, test_size: float = 0.2):
         test_size (float): Test split fraction (default 0.2).
 
     Returns:
-        dict: {"accuracy": float, "precision": float, "recall": float, "f1": float}
+        None
     """
     X, y = load_xy(csv_path, label_col)
     X_train, X_test, y_train, y_test = split_dataset(X, y, test_size=test_size, seed=42)

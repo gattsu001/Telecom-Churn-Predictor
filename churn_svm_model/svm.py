@@ -9,7 +9,7 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 
 
-def load_xy(csv_path, label_col):
+def load_and_preprocess(csv_path, label_col):
     """
     Load a CSV, return (X, y).
     - Uses only numeric feature columns (simple and robust).
@@ -18,18 +18,21 @@ def load_xy(csv_path, label_col):
     #Load Dataset
     df = pd.read_csv(csv_path)
 
-    #Check Dataset contains the target variable
     if label_col not in df.columns:
         raise ValueError(f"Label column '{label_col}' not found. Columns: {list(df.columns)}")
 
-    #Drop rows with missing labels
+    # Drop the label and ID columns
     df = df.dropna(subset=[label_col]).copy()
     y = df[label_col].astype(str).values
 
-    #Drop features other than numeric columns
+    # Drop irrelevant identifier columns
+    drop_cols = ["state", "area code", "phone number"]
+    df = df.drop(columns=[c for c in drop_cols if c in df.columns], errors="ignore")
+
+    # Use only numeric columns
     X = df.drop(columns=[label_col]).select_dtypes(include=[np.number]).values
     if X.size == 0:
-        raise ValueError("No numeric feature columns found. Add numeric features or encoding before training.")
+        raise ValueError("No numeric feature columns found.")
     return X, y
 
 
@@ -76,7 +79,7 @@ def train_and_evaluate(csv_path: str, label_col: str, test_size: float = 0.2):
     Returns:
         None
     """
-    X, y = load_xy(csv_path, label_col)
+    X, y = load_and_preprocess(csv_path, label_col)
     X_train, X_test, y_train, y_test = split_dataset(X, y, test_size=test_size, seed=42)
 
     #Build the pipeline

